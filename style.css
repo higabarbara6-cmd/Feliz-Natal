@@ -1,0 +1,722 @@
+:root {
+    /* Tema Escuro (Padrão: Noite Estrelada) */
+    --bg-top: #040914;
+    --bg-mid: #0a192f;
+    --bg-bot: #132a4a;
+    --title-gradient: linear-gradient(180deg, #fff8db 0%, #ffd166 55%, #d4a338 100%);
+    --heading-color: #ffd166;
+    --pill-bg: rgba(255, 209, 102, 0.14);
+    --pill-border: rgba(255, 209, 102, 0.4);
+    --pill-text: #ffd166;
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-hover: rgba(255, 209, 102, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.22);
+    --panel-bg: rgba(10, 22, 44, 0.72);
+    --card-front-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(15, 30, 58, 0.75));
+    --input-bg: rgba(4, 9, 20, 0.7);
+    --input-text: #ffffff;
+    --lantern-bg: radial-gradient(circle at 50% 20%, rgba(255, 209, 102, 0.22), rgba(244, 162, 97, 0.08));
+    --lantern-border: rgba(255, 209, 102, 0.35);
+    --sphere-bg: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.22) 0%, rgba(25, 55, 95, 0.45) 45%, rgba(8, 20, 42, 0.88) 100%);
+    --sphere-border: rgba(255, 255, 255, 0.35);
+    --mountain-back: #132c4e;
+    --mountain-front: #193763;
+    --star-opacity: 0.85;
+    --orb-bg: radial-gradient(circle at 35% 35%, #fffbeb, #fde68a 65%, #f59e0b 100%);
+    --orb-shadow: 0 0 45px rgba(253, 230, 138, 0.45);
+    --toast-bg: #0f172a;
+    --toast-text: #ffd166;
+    --gold: #ffd166;
+    --text-light: #f8fafc;
+    --text-soft: #cbd5e1;
+}
+
+body.light-mode {
+    /* Tema Claro (Manhã Nevada de Inverno) */
+    --bg-top: #cfe8ff;
+    --bg-mid: #e6f2ff;
+    --bg-bot: #f8fbff;
+    --title-gradient: linear-gradient(180deg, #b91c1c 0%, #dc2626 60%, #991b1b 100%);
+    --heading-color: #b91c1c;
+    --pill-bg: rgba(185, 28, 28, 0.1);
+    --pill-border: rgba(185, 28, 28, 0.3);
+    --pill-text: #b91c1c;
+    --glass: rgba(255, 255, 255, 0.78);
+    --glass-hover: rgba(255, 209, 102, 0.35);
+    --glass-border: rgba(15, 23, 42, 0.14);
+    --panel-bg: rgba(255, 255, 255, 0.82);
+    --card-front-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(226, 240, 255, 0.9));
+    --input-bg: rgba(255, 255, 255, 0.95);
+    --input-text: #0f172a;
+    --lantern-bg: radial-gradient(circle at 50% 20%, rgba(254, 243, 199, 0.95), rgba(253, 230, 138, 0.45));
+    --lantern-border: rgba(217, 119, 6, 0.38);
+    --sphere-bg: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.65) 0%, rgba(147, 197, 253, 0.45) 50%, rgba(59, 130, 246, 0.65) 100%);
+    --sphere-border: rgba(255, 255, 255, 0.9);
+    --mountain-back: #60a5fa;
+    --mountain-front: #3b82f6;
+    --star-opacity: 0;
+    --orb-bg: radial-gradient(circle at 40% 40%, #ffffff, #fef08a 55%, #facc15 100%);
+    --orb-shadow: 0 0 60px rgba(250, 204, 21, 0.75);
+    --toast-bg: #ffffff;
+    --toast-text: #b91c1c;
+    --text-light: #0f172a;
+    --text-soft: #334155;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, var(--bg-bot) 100%);
+    color: var(--text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    transition: background 0.45s ease, color 0.35s ease;
+}
+
+/* Estrelas do Céu Noturno */
+.starfield {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent),
+        radial-gradient(2px 2px at 28% 8%, #ffd166, transparent),
+        radial-gradient(1.2px 1.2px at 45% 24%, #fff, transparent),
+        radial-gradient(2px 2px at 68% 12%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 84% 22%, #ffd166, transparent),
+        radial-gradient(1.5px 1.5px at 92% 9%, #fff, transparent),
+        radial-gradient(1.2px 1.2px at 18% 36%, #fff, transparent),
+        radial-gradient(1.8px 1.8px at 76% 34%, #fff, transparent);
+    opacity: var(--star-opacity);
+    transition: opacity 0.45s ease;
+}
+
+/* Lua / Sol */
+.celestial-orb {
+    position: fixed;
+    top: 56px;
+    right: 8%;
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    background: var(--orb-bg);
+    box-shadow: var(--orb-shadow);
+    pointer-events: none;
+    z-index: 1;
+    transition: background 0.45s ease, box-shadow 0.45s ease;
+}
+
+/* Pisca-pisca de Fio Curvo */
+.fairy-lights {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    z-index: 60;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12px;
+}
+
+.fairy-bulb {
+    width: 11px;
+    height: 18px;
+    border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.fairy-bulb:nth-child(odd) {
+    margin-top: 6px;
+}
+
+.fairy-bulb:nth-child(even) {
+    margin-top: 16px;
+}
+
+.mode-warm .fairy-bulb {
+    background: #ffdd87;
+    box-shadow: 0 0 14px #ffbe0b, 0 0 26px rgba(255, 190, 11, 0.5);
+    animation: twinkle 2.2s infinite alternate;
+}
+
+.mode-warm .fairy-bulb:nth-child(3n) {
+    animation-delay: 0.6s;
+}
+
+.mode-warm .fairy-bulb:nth-child(3n+1) {
+    animation-delay: 1.2s;
+}
+
+.mode-rgb .fairy-bulb:nth-child(4n+1) {
+    background: #ff4d6d;
+    box-shadow: 0 0 14px #ff4d6d;
+    animation: twinkle 1.1s infinite alternate;
+}
+
+.mode-rgb .fairy-bulb:nth-child(4n+2) {
+    background: #00f5d4;
+    box-shadow: 0 0 14px #00f5d4;
+    animation: twinkle 1.1s infinite alternate 0.3s;
+}
+
+.mode-rgb .fairy-bulb:nth-child(4n+3) {
+    background: #fee440;
+    box-shadow: 0 0 14px #fee440;
+    animation: twinkle 1.1s infinite alternate 0.6s;
+}
+
+.mode-rgb .fairy-bulb:nth-child(4n+4) {
+    background: #00bbf9;
+    box-shadow: 0 0 14px #00bbf9;
+    animation: twinkle 1.1s infinite alternate 0.9s;
+}
+
+.mode-off .fairy-bulb {
+    background: #64748b;
+    box-shadow: none;
+    opacity: 0.4;
+    animation: none;
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.45;
+        transform: scale(0.92);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+/* Trenó do Papai Noel com Rena no Céu */
+.santa-flyer {
+    position: fixed;
+    top: 76px;
+    left: -340px;
+    z-index: 25;
+    cursor: pointer;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+}
+
+.santa-flyer.active {
+    animation: santaOrbit 15s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+}
+
+@keyframes santaOrbit {
+    0% {
+        transform: translate(0, 10px) rotate(-4deg) scale(0.9);
+    }
+
+    30% {
+        transform: translate(calc(40vw + 120px), -22px) rotate(2deg) scale(1);
+    }
+
+    65% {
+        transform: translate(calc(75vw + 240px), 12px) rotate(-2deg) scale(1);
+    }
+
+    100% {
+        transform: translate(calc(125vw + 420px), -18px) rotate(3deg) scale(0.95);
+    }
+}
+
+.rudolph-beacon {
+    animation: beaconPulse 0.75s infinite alternate;
+}
+
+@keyframes beaconPulse {
+    from {
+        fill: #ff1e42;
+        filter: drop-shadow(0 0 2px #ff1e42);
+    }
+
+    to {
+        fill: #ffb3c1;
+        filter: drop-shadow(0 0 12px #ff1e42);
+    }
+}
+
+/* Paraquedas de Presente */
+.parachute-drop {
+    position: fixed;
+    z-index: 45;
+    font-size: 1.9rem;
+    cursor: pointer;
+    user-select: none;
+    animation: floatDown 5.5s ease-in-out forwards;
+    text-align: center;
+    line-height: 1;
+}
+
+.parachute-drop span {
+    display: block;
+    font-size: 1.2rem;
+}
+
+@keyframes floatDown {
+    0% {
+        transform: translateY(0) rotate(-6deg);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(38vh) rotate(6deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(82vh) rotate(-4deg);
+        opacity: 0;
+    }
+}
+
+/* Layout Geral */
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 58px 20px 90px;
+}
+
+/* Cabeçalho */
+header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.subtitle-pill {
+    display: inline-block;
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    color: var(--pill-text);
+    padding: 6px 18px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.1rem, 5.5vw, 3.8rem);
+    font-weight: 900;
+    background: var(--title-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+header p {
+    max-width: 620px;
+    margin: 0 auto;
+    color: var(--text-soft);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* Globo de Neve Central Interativo */
+.globe-showcase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 28px 0 54px;
+}
+
+.snowglobe-assembly {
+    position: relative;
+    width: min(92vw, 430px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.snowglobe-sphere {
+    position: relative;
+    width: min(88vw, 400px);
+    height: min(88vw, 400px);
+    border-radius: 50%;
+    background: var(--sphere-bg);
+    border: 3px solid var(--sphere-border);
+    box-shadow:
+        inset 0 18px 36px rgba(255, 255, 255, 0.32),
+        inset 0 -24px 40px rgba(4, 9, 20, 0.55),
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        0 0 45px rgba(76, 201, 240, 0.18);
+    overflow: hidden;
+    transition: transform 0.15s ease, background 0.45s ease, border-color 0.45s ease;
+}
+
+.snowglobe-sphere.shaking {
+    animation: globeShake 0.55s ease-in-out;
+}
+
+@keyframes globeShake {
+
+    0%,
+    100% {
+        transform: rotate(0deg) translateX(0);
+    }
+
+    20% {
+        transform: rotate(-4deg) translateX(-8px);
+    }
+
+    40% {
+        transform: rotate(4deg) translateX(8px);
+    }
+
+    60% {
+        transform: rotate(-3deg) translateX(-5px);
+    }
+
+    80% {
+        transform: rotate(3deg) translateX(5px);
+    }
+}
+
+.mountain-back {
+    fill: var(--mountain-back);
+    transition: fill 0.45s ease;
+}
+
+.mountain-front {
+    fill: var(--mountain-front);
+    transition: fill 0.45s ease;
+}
+
+/* Reflexo de Vidro */
+.glass-glare {
+    position: absolute;
+    top: 7%;
+    left: 13%;
+    width: 34%;
+    height: 22%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.52), transparent);
+    transform: rotate(-28deg);
+    pointer-events: none;
+    z-index: 20;
+}
+
+#globe-snow-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 15;
+}
+
+/* Cena Interna do Globo */
+.globe-scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+/* Pedestal do Globo */
+.globe-pedestal {
+    width: min(72vw, 310px);
+    height: 68px;
+    margin-top: -26px;
+    background: linear-gradient(90deg, #3b1d14 0%, #6f3726 30%, #8c4832 50%, #6f3726 70%, #3b1d14 100%);
+    border-top: 4px solid var(--gold);
+    border-bottom: 5px solid #24100a;
+    border-radius: 14px 14px 26px 26px;
+    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 22;
+    position: relative;
+}
+
+.brass-plaque {
+    background: linear-gradient(135deg, #ffe28a, #d4a338, #f7d06b);
+    color: #2b1708;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 900;
+    font-size: 0.85rem;
+    padding: 6px 18px;
+    border-radius: 6px;
+    border: 1px solid #fff3b0;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.05em;
+}
+
+/* Painel de Controles do Globo */
+.globe-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+    max-width: 720px;
+}
+
+.action-btn {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: var(--text-light);
+    padding: 10px 16px;
+    border-radius: 14px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.86rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.action-btn:hover {
+    background: var(--glass-hover);
+    border-color: var(--heading-color);
+    transform: translateY(-2px);
+}
+
+.action-btn.primary {
+    background: linear-gradient(135deg, #ffd166, #f4a261);
+    color: #1d1206;
+    border: none;
+}
+
+/* Estrela pulsante dentro do globo */
+.globe-star {
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+.globe-star.glowing {
+    filter: drop-shadow(0 0 10px #ffd166);
+}
+
+/* Cartões 3D Giratórios para os Parentes */
+.section-heading {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.section-heading h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--heading-color);
+    margin-bottom: 6px;
+}
+
+.section-heading p {
+    color: var(--text-soft);
+    font-size: 0.95rem;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+    margin-bottom: 58px;
+    perspective: 1000px;
+}
+
+.flip-card {
+    height: 235px;
+    cursor: pointer;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 22px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+}
+
+.flip-front {
+    background: var(--card-front-bg);
+    backdrop-filter: blur(10px);
+}
+
+.flip-front:hover {
+    border-color: var(--heading-color);
+}
+
+.flip-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.flip-front h3 {
+    color: var(--heading-color);
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+}
+
+.flip-front span {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+}
+
+.flip-back {
+    background: linear-gradient(145deg, #7f1d1d, #450a0a);
+    border-color: var(--gold);
+    transform: rotateY(180deg);
+}
+
+.flip-back h4 {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold);
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+}
+
+.flip-back p {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #ffffff;
+}
+
+/* Mural de Lanternas de Desejos */
+.lantern-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 26px;
+    padding: 30px 22px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+}
+
+.lantern-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: 0 auto 26px;
+}
+
+.lantern-form input {
+    flex: 1;
+    min-width: 180px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background: var(--input-bg);
+    color: var(--input-text);
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.lantern-form input:focus {
+    border-color: var(--heading-color);
+}
+
+.lantern-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.lantern-item {
+    background: var(--lantern-bg);
+    border: 1px solid var(--lantern-border);
+    border-radius: 18px;
+    padding: 14px 16px;
+    position: relative;
+    animation: floatLantern 4s ease-in-out infinite alternate;
+}
+
+.lantern-item:nth-child(even) {
+    animation-delay: 1.4s;
+}
+
+@keyframes floatLantern {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-6px);
+    }
+}
+
+.lantern-item strong {
+    display: block;
+    color: var(--heading-color);
+    font-size: 0.88rem;
+    margin-bottom: 4px;
+}
+
+.lantern-item p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
+footer {
+    text-align: center;
+    margin-top: 46px;
+    color: var(--text-soft);
+    font-size: 0.88rem;
+}
+
+.status-toast {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%) translateY(90px);
+    background: var(--toast-bg);
+    color: var(--toast-text);
+    border: 1px solid var(--toast-text);
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    z-index: 100;
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    max-width: 90vw;
+}
+
+.status-toast.visible {
+    transform: translateX(-50%) translateY(0);
+}

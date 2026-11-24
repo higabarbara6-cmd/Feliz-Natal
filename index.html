@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Globo de Neve Mágico • Feliz Natal, Família! ❄️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Quicksand:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div class="starfield"></div>
+    <div class="celestial-orb" id="celestial-orb"></div>
+
+    <!-- Pisca-pisca superior -->
+    <div class="fairy-lights mode-warm" id="fairy-lights"></div>
+
+    <!-- Trenó do Papai Noel + Rena -->
+    <div class="santa-flyer" id="santa-flyer" title="Clique no Papai Noel!">
+        <svg width="240" height="75" viewBox="0 0 240 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="88" y1="45" x2="165" y2="41" stroke="#ffd166" stroke-width="1.5" stroke-dasharray="3 2" />
+            <!-- Trenó -->
+            <path d="M12 55 C32 65, 78 65, 94 49" stroke="#ffd166" stroke-width="3" stroke-linecap="round" />
+            <path d="M22 34 L82 34 L89 49 L19 49 Z" fill="#e63946" />
+            <!-- Presentes -->
+            <rect x="28" y="23" width="11" height="11" rx="2" fill="#2ec4b6" />
+            <rect x="41" y="20" width="12" height="14" rx="2" fill="#ffd166" />
+            <!-- Papai Noel -->
+            <circle cx="64" cy="27" r="9.5" fill="#e63946" />
+            <circle cx="64" cy="16" r="6" fill="#ffcdb2" />
+            <path d="M58 18 Q64 26 70 18" fill="#ffffff" />
+            <path d="M58 12 L64 3 L71 12 Z" fill="#e63946" />
+            <circle cx="64" cy="3" r="2" fill="#fff" />
+            <!-- Rena Rodolfo -->
+            <ellipse cx="184" cy="41" rx="15" ry="8.5" fill="#9c6644" />
+            <rect x="173" y="47" width="3" height="12" rx="1.5" fill="#7f5539" />
+            <rect x="192" y="47" width="3" height="12" rx="1.5" fill="#7f5539" />
+            <circle cx="201" cy="30" r="7" fill="#9c6644" />
+            <path d="M198 23 L195 13 M195 18 L191 16 M202 23 L206 13 M205 18 L209 16" stroke="#ffd166" stroke-width="2"
+                stroke-linecap="round" />
+            <circle class="rudolph-beacon" cx="209" cy="31" r="3.4" fill="#ff1e42" />
+        </svg>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="subtitle-pill">Lembrança de Natal • Família</div>
+            <h1>Feliz Natal, Família!</h1>
+            <p>
+                Chacoalhe o globo de neve, acenda as luzes, decore a árvore e abra os cartões preparados com carinho
+                para vocês.
+            </p>
+        </header>
+
+        <!-- Globo de Neve Mágico -->
+        <section class="globe-showcase">
+            <div class="snowglobe-assembly">
+                <div class="snowglobe-sphere" id="snowglobe">
+                    <div class="glass-glare"></div>
+                    <canvas id="globe-snow-canvas"></canvas>
+
+                    <!-- Cena SVG dentro do globo -->
+                    <svg class="globe-scene" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Montanhas ao fundo -->
+                        <polygon class="mountain-back" points="20,300 110,185 200,300" fill="#132c4e" />
+                        <polygon class="mountain-front" points="150,300 265,170 380,300" fill="#193763" />
+                        <polygon points="110,185 88,214 112,208 132,214" fill="#e2e8f0" />
+                        <polygon points="265,170 238,202 266,196 292,202" fill="#e2e8f0" />
+
+                        <!-- Chão Nevado -->
+                        <ellipse cx="200" cy="335" rx="195" ry="68" fill="#f1f5f9" />
+                        <ellipse cx="200" cy="345" rx="195" ry="60" fill="#ffffff" />
+
+                        <!-- Árvore de Natal (Esquerda/Centro) -->
+                        <g id="globe-tree" style="cursor: pointer;" onclick="addTreeBauble()">
+                            <rect x="132" y="275" width="22" height="34" rx="3" fill="#5c3a21" />
+                            <polygon points="143,165 78,278 208,278" fill="#14532d" />
+                            <polygon points="143,132 90,230 196,230" fill="#166534" />
+                            <polygon points="143,102 104,182 182,182" fill="#15803d" />
+
+                            <!-- Luzes na árvore -->
+                            <g id="tree-baubles">
+                                <circle cx="130" cy="155" r="5" fill="#e63946" />
+                                <circle cx="158" cy="165" r="5" fill="#ffd166" />
+                                <circle cx="116" cy="208" r="5.5" fill="#4cc9f0" />
+                                <circle cx="146" cy="200" r="5" fill="#e63946" />
+                                <circle cx="170" cy="214" r="5.5" fill="#ffd166" />
+                                <circle cx="104" cy="256" r="6" fill="#ffd166" />
+                                <circle cx="138" cy="250" r="6" fill="#2ec4b6" />
+                                <circle cx="176" cy="258" r="6" fill="#e63946" />
+                            </g>
+
+                            <!-- Estrela -->
+                            <polygon id="globe-star" class="globe-star glowing" onclick="toggleGlobeStar(event)"
+                                points="143,76 148,89 162,90 151,99 154,112 143,104 132,112 135,99 124,90 138,89"
+                                fill="#ffd166" />
+                        </g>
+
+                        <!-- Boneco de Neve Personalizável (Direita) -->
+                        <g id="globe-snowman" style="cursor: pointer;" onclick="cycleSnowmanAccessory()">
+                            <!-- Braços -->
+                            <path d="M242 232 L214 212" stroke="#6f4e37" stroke-width="4" stroke-linecap="round" />
+                            <path d="M294 232 L322 210" stroke="#6f4e37" stroke-width="4" stroke-linecap="round" />
+
+                            <!-- Bolas de Neve -->
+                            <circle cx="268" cy="272" r="34" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+                            <circle cx="268" cy="226" r="25" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+                            <circle cx="268" cy="186" r="19" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+
+                            <!-- Botões -->
+                            <circle cx="268" cy="220" r="2.8" fill="#1e293b" />
+                            <circle cx="268" cy="233" r="2.8" fill="#1e293b" />
+                            <circle cx="268" cy="264" r="3.2" fill="#1e293b" />
+
+                            <!-- Cachecol -->
+                            <path id="snowman-scarf" d="M250 202 Q268 210 286 202" stroke="#e63946" stroke-width="8"
+                                stroke-linecap="round" />
+                            <path id="snowman-scarf-tail" d="M277 204 L283 228" stroke="#e63946" stroke-width="7"
+                                stroke-linecap="round" />
+
+                            <!-- Olhos e Nariz -->
+                            <circle cx="261" cy="182" r="2.3" fill="#0f172a" />
+                            <circle cx="275" cy="182" r="2.3" fill="#0f172a" />
+                            <polygon points="268,185 285,189 268,192" fill="#f97316" />
+                            <path d="M261 194 Q268 199 275 194" stroke="#0f172a" stroke-width="2" fill="none"
+                                stroke-linecap="round" />
+
+                            <!-- Acessório de Cabeça (Alternável) -->
+                            <g id="hat-tophat">
+                                <rect x="246" y="166" width="44" height="5" rx="2.5" fill="#1e293b" />
+                                <rect x="253" y="143" width="30" height="24" rx="3" fill="#1e293b" />
+                                <rect x="253" y="160" width="30" height="4" fill="#e63946" />
+                            </g>
+                            <g id="hat-santa" style="display: none;">
+                                <path d="M249 169 Q268 138 289 166 Z" fill="#e63946" />
+                                <rect x="247" y="166" width="43" height="6" rx="3" fill="#ffffff" />
+                                <circle cx="290" cy="167" r="4.5" fill="#ffffff" />
+                            </g>
+                            <g id="hat-earmuffs" style="display: none;">
+                                <path d="M248 184 A20 20 0 0 1 288 184" stroke="#2ec4b6" stroke-width="4" fill="none" />
+                                <circle cx="248" cy="185" r="6" fill="#2ec4b6" />
+                                <circle cx="288" cy="185" r="6" fill="#2ec4b6" />
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="globe-pedestal">
+                    <div class="brass-plaque">NATAL EM FAMÍLIA</div>
+                </div>
+            </div>
+
+            <!-- Botões de Interação -->
+            <div class="globe-controls">
+                <button class="action-btn primary" onclick="shakeSnowGlobe()">❄️ Chacoalhar Globo</button>
+                <button class="action-btn" id="btn-theme" onclick="toggleTheme()">☀️ Modo Claro</button>
+                <button class="action-btn" id="btn-fairy" onclick="switchFairyMode()">💡 Pisca-Pisca: Dourado</button>
+                <button class="action-btn" onclick="cycleSnowmanAccessory()">🎩 Trocar Chapéu</button>
+                <button class="action-btn" onclick="triggerSantaFlight()">🎅 Trenó & Rena</button>
+                <button class="action-btn" onclick="playChristmasChime()">🎶 Melodia Natalina</button>
+            </div>
+        </section>
+
+        <!-- Cartões 3D Giratórios -->
+        <section>
+            <div class="section-heading">
+                <h2>Cartões de Natal para Vocês</h2>
+                <p>Clique em cada cartão para virar e ler a mensagem secreta</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="flip-icon">🕯️</div>
+                            <h3>Para os Pais & Avós</h3>
+                            <span>Toque para virar o cartão</span>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Gratidão Eterna</h4>
+                            <p>Vocês são o alicerce da nossa história e o abraço que sempre nos guia para casa. Que este
+                                Natal retribua todo o amor que vocês espalham!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="flip-icon">🎄</div>
+                            <h3>Para Irmãos & Primos</h3>
+                            <span>Toque para virar o cartão</span>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Parceria de Vida</h4>
+                            <p>Dos risos na infância às conquistas de hoje: ter vocês por perto transforma qualquer dia
+                                comum em festa. Feliz Natal!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="flip-icon">🦌</div>
+                            <h3>Para Tios & Madrinhas</h3>
+                            <span>Toque para virar o cartão</span>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Carinho & Alegria</h4>
+                            <p>Cada conselho, cada história na mesa da ceia e cada torcida fazem toda a diferença na
+                                nossa caminhada. Muita saúde e paz!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="flip-icon">🎁</div>
+                            <h3>Vale-Presente Coletivo</h3>
+                            <span>Toque para virar o cartão</span>
+                        </div>
+                        <div class="flip-back">
+                            <h4>Nosso Maior Tesouro</h4>
+                            <p>Este cartão dá direito a abraços demorados, muitas fotos juntos e um Ano Novo repleto de
+                                saúde, união e sonhos realizados!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lanternas de Desejos da Família -->
+        <section class="lantern-panel">
+            <div class="section-heading">
+                <h2>Lanternas de Desejos</h2>
+                <p>Acenda uma lanterna com o seu nome e um desejo para a família</p>
+            </div>
+
+            <form class="lantern-form" onsubmit="createLantern(event)">
+                <input type="text" id="sender-name" placeholder="Seu nome (ex: Vó Maria)" maxlength="25" required />
+                <input type="text" id="sender-wish" placeholder="Escreva seu desejo de Natal..." maxlength="75"
+                    required />
+                <button type="submit" class="action-btn primary">🏮 Acender Lanterna</button>
+            </form>
+
+            <div class="lantern-grid" id="lantern-grid"></div>
+        </section>
+
+        <footer>
+            Criado com afeto para iluminar o Natal de toda a família ✨
+        </footer>
+    </div>
+
+    <div class="status-toast" id="status-toast"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
